@@ -72,3 +72,7 @@ count = _textView.contentSize.height - _textView.frame.size.height;
 count = contentSize.height - self.tmpHeight;
 ```
 
+***
+
+## 添加moreInputView
+
