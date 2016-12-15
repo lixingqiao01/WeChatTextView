@@ -18,6 +18,7 @@
 		EE2C9D2D1E024CDC006F65F1 /* chatInput.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE2C9D281E024CDC006F65F1 /* chatInput.bundle */; };
 		EE2C9D2E1E024CDC006F65F1 /* LXQInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D2A1E024CDC006F65F1 /* LXQInputView.m */; };
 		EE2C9D2F1E024CDC006F65F1 /* UIButton+setImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D2C1E024CDC006F65F1 /* UIButton+setImage.m */; };
+		EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D301E024E06006F65F1 /* ReadMe.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		EE2C9D2A1E024CDC006F65F1 /* LXQInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQInputView.m; sourceTree = "<group>"; };
 		EE2C9D2B1E024CDC006F65F1 /* UIButton+setImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+setImage.h"; sourceTree = "<group>"; };
 		EE2C9D2C1E024CDC006F65F1 /* UIButton+setImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+setImage.m"; sourceTree = "<group>"; };
+		EE2C9D301E024E06006F65F1 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 		EE2C9CE81E024CCC006F65F1 = {
 			isa = PBXGroup;
 			children = (
+				EE2C9D301E024E06006F65F1 /* ReadMe.md */,
 				EE2C9CF31E024CCC006F65F1 /* WeChatTextView */,
 				EE2C9D0D1E024CCC006F65F1 /* WeChatTextViewTests */,
 				EE2C9D181E024CCC006F65F1 /* WeChatTextViewUITests */,
@@ -297,6 +300,7 @@
 			files = (
 				EE2C9CFC1E024CCC006F65F1 /* ViewController.m in Sources */,
 				EE2C9D2F1E024CDC006F65F1 /* UIButton+setImage.m in Sources */,
+				EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */,
 				EE2C9D2E1E024CDC006F65F1 /* LXQInputView.m in Sources */,
 				EE2C9CF91E024CCC006F65F1 /* AppDelegate.m in Sources */,
 				EE2C9CF61E024CCC006F65F1 /* main.m in Sources */,
