@@ -301,7 +301,6 @@
 }
 
 - (void)keyboardWillHideNotification{
-    NSLog(@"键盘收回");
     CGRect WinRect = [UIScreen mainScreen].bounds;
     self.frame = CGRectMake(0, WinRect.size.height - 50, WinRect.size.width, 50);
 }
