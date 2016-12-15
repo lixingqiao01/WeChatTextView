@@ -4,7 +4,7 @@
 
 ***
 
- ![未命名](/Users/lixingqiao01/Desktop/未命名.gif)
+  ![未命名](未命名.gif)
 
 ***
 
