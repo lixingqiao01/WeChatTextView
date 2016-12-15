@@ -248,6 +248,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     CGSize contentSize = textView.contentSize;
+    
     if (contentSize.height > self.tmpHeight && self.tmpHeight != 0) {
         count = contentSize.height - self.tmpHeight;
         if (self.frame.size.height < INPUTVIEW_MAX_HEIGHT) {
@@ -256,8 +257,8 @@
         }
         
     } else if (contentSize.height < self.tmpHeight && self.tmpHeight != 0) {
-        count = contentSize.height - self.tmpHeight;
-        if (_textView.contentSize.height <= _textView.frame.size.height) {
+        count = _textView.contentSize.height - _textView.frame.size.height;
+        if (_textView.contentSize.height <= _textView.frame.size.height ) {
             [self animationWithDisplace:count];
         }
     }

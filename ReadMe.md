@@ -52,3 +52,21 @@
 
 **在仿写微信输入框的时候总是吧输入框的实现过程想得很复杂，从什么设置约束到动画，在到关键帧动画，再到CADisplayLink。从简单到复杂，越来越乱，越来越复杂，虽然最后都实现了想要的结果，虽然前面一直纠结这个这个实现过程，也走了不少的弯路，不过在编码的过程中自己也收获了不少，比如什么CADisplayLine的用法、UIView关键帧动画，等等，总之这个过程很享受**
 
+### Bug
+
+1.当输入超过最大高度后，全选删除inputView过于小的问题
+
+2.当输入的文字超过textView的显示范围后删除一部分出现的问题
+
+**textView实际的减少量应该是**
+
+```objective-c
+count = _textView.contentSize.height - _textView.frame.size.height;
+```
+
+**而非**
+
+```objective-c
+count = contentSize.height - self.tmpHeight;
+```
+
