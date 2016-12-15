@@ -10,6 +10,16 @@
 
 @interface LXQMoreInputView : UIView
 
+/**
+ 聊天室Controller
+ */
 @property (nonatomic, weak) UIViewController *chatViewController;
+
+/**
+ 开始动画
+ */
+- (void)startAnimation;
+
++ (LXQMoreInputView *)shareMoreInputView;
 
 @end

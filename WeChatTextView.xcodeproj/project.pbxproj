@@ -20,6 +20,7 @@
 		EE2C9D2F1E024CDC006F65F1 /* UIButton+setImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D2C1E024CDC006F65F1 /* UIButton+setImage.m */; };
 		EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D301E024E06006F65F1 /* ReadMe.md */; };
 		EE90C2771E02C13D008B5D09 /* LXQMoreInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */; };
+		EED3EBC81E02D8D200D9321B /* LXQChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		EE2C9D301E024E06006F65F1 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		EE90C2751E02C13D008B5D09 /* LXQMoreInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQMoreInputView.h; sourceTree = "<group>"; };
 		EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQMoreInputView.m; sourceTree = "<group>"; };
+		EED3EBC61E02D8D200D9321B /* LXQChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQChatHelper.h; sourceTree = "<group>"; };
+		EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQChatHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +118,8 @@
 		EE2C9CF31E024CCC006F65F1 /* WeChatTextView */ = {
 			isa = PBXGroup;
 			children = (
+				EED3EBC61E02D8D200D9321B /* LXQChatHelper.h */,
+				EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */,
 				EE90C2741E02C124008B5D09 /* moreInputView */,
 				EE2C9D271E024CDC006F65F1 /* InputView */,
 				EE2C9CF71E024CCC006F65F1 /* AppDelegate.h */,
@@ -244,6 +249,7 @@
 				TargetAttributes = {
 					EE2C9CF01E024CCC006F65F1 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = SQM25H9TT2;
 						ProvisioningStyle = Automatic;
 					};
 					EE2C9D091E024CCC006F65F1 = {
@@ -318,6 +324,7 @@
 				EE2C9D2E1E024CDC006F65F1 /* LXQInputView.m in Sources */,
 				EE2C9CF91E024CCC006F65F1 /* AppDelegate.m in Sources */,
 				EE2C9CF61E024CCC006F65F1 /* main.m in Sources */,
+				EED3EBC81E02D8D200D9321B /* LXQChatHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +471,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = SQM25H9TT2;
 				INFOPLIST_FILE = WeChatTextView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LXQ.WeChatTextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -475,7 +485,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = SQM25H9TT2;
 				INFOPLIST_FILE = WeChatTextView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LXQ.WeChatTextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";

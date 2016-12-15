@@ -76,3 +76,67 @@ count = contentSize.height - self.tmpHeight;
 
 ## 添加moreInputView
 
+* 监听MoreInputView frame的改变
+
+  ```objective-c
+  - (void)startListenFrame{
+      [self stopListenFrame];
+      self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(listenFrame)];
+      [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+  }
+
+  - (void)stopListenFrame{
+      [self.displayLink invalidate];
+      self.displayLink  = nil;
+      [self listenFrame];
+  }
+
+  - (void)listenFrame{
+      CALayer *presentationLayer = self.layer.presentationLayer;
+      if (presentationLayer.frame.origin.y != self.tmpFrame.origin.y) {
+          NSLog(@"%g",presentationLayer.frame.origin.y);
+          NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithFloat:presentationLayer.frame.origin.x],@"x",
+                                [NSNumber numberWithFloat:presentationLayer.frame.origin.y],@"y",
+                                [NSNumber numberWithFloat:presentationLayer.frame.size.height],@"height",
+                                [NSNumber numberWithFloat:presentationLayer.frame.size.width],@"width",
+                                nil];
+          [[NSNotificationCenter defaultCenter] postNotificationName:@"LXQNotificationMoreInputView" object:nil userInfo:dict];
+      }
+      self.tmpFrame = presentationLayer.frame;
+  }
+  ```
+
+  监听 frame 的改变，实现类似于键盘一样的弹出效果，只需要监听LXQNotificationMoreInputView，就能获取frame的改变
+
+  **虽然这样可以实现，但是动画效果并不理想，在inputView升高的过程中明显有一个延迟，这个延迟很让人难受，因此打算更换方法**
+
+* **第二种解决办法**
+
+  通过增加Helper类，集中处理inputView的各种动画，
+
+  > LXQChatHelper.h
+
+  ```objective-c
+  #import <Foundation/Foundation.h>
+  #import "LXQMoreInputView.h"
+  #import "LXQInputView.h"
+
+  @interface LXQChatHelper : NSObject
+
+  @property (nonatomic, weak) LXQMoreInputView            *moreInputView;
+
+  @property (nonatomic, weak) LXQInputView                *inputView;
+
+  @property (nonatomic, weak) UIViewController            *chatViewController;
+
+  + (LXQChatHelper *)shareChatHelper;
+
+  - (void)showMoreInputView;
+
+  @end
+  ```
+
+  ​
+
+  ​

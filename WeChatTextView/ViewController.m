@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "LXQMoreInputView.h"
 #import "LXQInputView.h"
+#import "LXQChatHelper.h"
 
 @interface ViewController ()
 
@@ -20,6 +22,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     LXQInputView *inputView = [[LXQInputView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - 50, self.view.frame.size.width, 50)];
     [self.view addSubview:inputView];
+    
+    LXQMoreInputView *moreShareView = [LXQMoreInputView shareMoreInputView];
+    [self.view addSubview:moreShareView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

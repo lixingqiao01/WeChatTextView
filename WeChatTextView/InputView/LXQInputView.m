@@ -8,6 +8,7 @@
 
 #import "LXQInputView.h"
 #import "UIButton+setImage.h"
+#import "LXQMoreInputView.h"
 
 #define INPUTVIEW_MAX_HEIGHT 132
 
@@ -230,6 +231,8 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWasShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHideNotification) name:UIKeyboardWillHideNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreInputViewWillShow:) name:@"LXQNotificationMoreInputView" object:nil];
+    
 //    [self startListenFrame];
 }
 
@@ -238,7 +241,7 @@
 }
 
 - (void)moreButtonClick:(UIButton *)sender{
-    
+    [[LXQMoreInputView shareMoreInputView] startAnimation];
 }
 
 - (void)emotionButtonClick:(UIButton *)sender{
@@ -305,8 +308,18 @@
     CGRect WinRect = [UIScreen mainScreen].bounds;
     self.frame = CGRectMake(0, WinRect.size.height - 50, WinRect.size.width, 50);
 }
+
+#pragma mark - 监听MoreInputView
+- (void)moreInputViewWillShow:(NSNotification *)notification{
+    NSLog(@"555");
+    self.frame = CGRectMake(0, [[[notification userInfo] objectForKey:@"y"] floatValue]- 50, self.frame.size.width, 50);
+}
+
+
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
+#pragma mark - 监听moreInputView的弹出
 
 @end
