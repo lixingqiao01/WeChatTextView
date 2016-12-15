@@ -230,7 +230,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWasShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHideNotification) name:UIKeyboardWillHideNotification object:nil];
     
-    [self startListenFrame];
+//    [self startListenFrame];
 }
 
 - (void)voiceButtonClick:(UIButton *)sender{
@@ -242,42 +242,60 @@
 }
 
 - (void)emotionButtonClick:(UIButton *)sender{
-    NSLog(@"点击了表情");
+    
     
 }
 
-/** 2016-12-15 09:27:18
 - (void)textViewDidChange:(UITextView *)textView{
     CGSize contentSize = textView.contentSize;
     if (contentSize.height > self.tmpHeight && self.tmpHeight != 0) {
-        count = 24 - count;
-        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(listenFrame)];
-        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    } else if (contentSize.height < self.tmpHeight && self.tmpHeight != 0) {
-        count = -24 + count;
-        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(listenFrame)];
-        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    }
-    [textView scrollRangeToVisible:NSMakeRange(0,0)];
-    self.tmpHeight = contentSize.height;
-}
- */
-
-- (void)textViewDidChange:(UITextView *)textView{
-    CGSize contentSize = textView.contentSize;
-    if (contentSize.height > self.tmpHeight && self.tmpHeight != 0) {
-        count = (contentSize.height - self.tmpHeight) - count;
+        count = contentSize.height - self.tmpHeight;
+        if (self.frame.size.height < INPUTVIEW_MAX_HEIGHT) {
+            [_textView scrollRangeToVisible:NSMakeRange(0, 0)];
+            [self animationWithDisplace:count];
+        }
         
     } else if (contentSize.height < self.tmpHeight && self.tmpHeight != 0) {
-        count = (contentSize.height - self.tmpHeight) + count;
+        count = contentSize.height - self.tmpHeight;
+        if (_textView.contentSize.height <= _textView.frame.size.height) {
+            [self animationWithDisplace:count];
+        }
     }
     self.tmpHeight = contentSize.height;
+}
+
+- (void)animationWithDisplace:(CGFloat)displace{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rect = self.frame;
+        //inputViewFame
+        rect.origin.y -= displace;
+        rect.size.height += displace;
+        self.frame = rect;
+        
+        //vioceButton frame
+        rect = self.voiceButton.frame;
+        rect.origin.y += displace;
+        self.voiceButton.frame = rect;
+        
+        //moreButton frame
+        rect = moreButton.frame;
+        rect.origin.y += displace;
+        moreButton.frame = rect;
+        
+        //emotionButton frame
+        rect = emotionButton.frame;
+        rect.origin.y += displace;
+        emotionButton.frame = rect;
+        
+        //textView frame
+        rect = _textView.frame;
+        rect.size.height += displace;
+        _textView.frame = rect;
+    }];
 }
 
 #pragma mark - 键盘监听
 - (void)keyboardWasShow:(NSNotification *)notification{
-//    [self startListenFrame];
-    NSLog(@"NSStringFromCGPoint == %@",NSStringFromCGRect([[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue]));
     self.frame = CGRectMake(0, [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y - 50, self.frame.size.width, 50);
     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y - 64 - 50);
 }
@@ -285,96 +303,9 @@
 - (void)keyboardWillHideNotification{
     NSLog(@"键盘收回");
     CGRect WinRect = [UIScreen mainScreen].bounds;
-    self.frame = CGRectMake(0, WinRect.size.height - 40, WinRect.size.width, 40);
+    self.frame = CGRectMake(0, WinRect.size.height - 50, WinRect.size.width, 50);
 }
-
-- (void)startListenFrame{
-    [self stopListenFrame];
-    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(listenFrame)];
-//    _displayLink.frameInterval
-    [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-}
-
-- (void)stopListenFrame{
-    [_displayLink invalidate];
-//    [_displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    _displayLink = nil;
-}
-
-- (void)listenFrame{
-        if (count != 0) {
-            NSLog(@"count == %d",count);
-            if (count > 0) {
-                if (self.frame.size.height < INPUTVIEW_MAX_HEIGHT) {
-                    [_textView scrollRangeToVisible:NSMakeRange(0,0)];
-                    CGRect rect = self.frame;
-                    rect.origin.y = self.frame.origin.y - 3;
-                    rect.size.height = self.frame.size.height + 3;
-                    self.frame = rect;
-                    count -= 3;
-                    if (count < 0) {
-                        count = 0;
-                    }
-                } else {
-                    count = 0;
-                }
-            } else {
-                if (_textView.contentSize.height <= _textView.frame.size.height) {
-                    CGRect rect = self.frame;
-                    rect.origin.y = self.frame.origin.y + 3;
-                    rect.size.height = self.frame.size.height - 3;
-                    self.frame = rect;
-                    count += 3;
-                    if (count > 0) {
-                        count = 0;
-                    }
-                } else {
-                    count = 0;
-                }
-            }
-        }
-}
-
-/** 2016-12-15 09:26:07
-- (void)listenFrame{
-    NSLog(@"---------------stare---------------");
-    if (count > 0) {
-        if (count > 0) {
-            CGRect rect = self.frame;
-            rect.origin.y = self.frame.origin.y - 3;
-            rect.size.height = self.frame.size.height + 3;
-            self.frame = rect;
-            count -= 3;
-            NSLog(@"            top         ");
-        } else {
-            [self stopListenFrame];
-            count = 0;
-        }
-    } else if (count < 0){
-        if (count < 0) {
-            CGRect rect = self.frame;
-            rect.origin.y = self.frame.origin.y + 3;
-            rect.size.height = self.frame.size.height - 3;
-            self.frame = rect;
-            count += 3;
-            NSLog(@"            bottom         ");
-        } else {
-            [self stopListenFrame];
-            count = 0;
-        }
-    } else {
-        [self stopListenFrame];
-        count = 0;
-        NSLog(@"            count == 0          ");
-    }
-//    NSLog(@"input.frame == %@ == %@ == %d",NSStringFromCGRect(self.frame),[NSDate date],count);
-    
-    NSLog(@"---------------end---------------\n\n");
-}
- */
-
 - (void)dealloc{
-    [self stopListenFrame];
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
