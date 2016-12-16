@@ -21,6 +21,7 @@
 		EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D301E024E06006F65F1 /* ReadMe.md */; };
 		EE90C2771E02C13D008B5D09 /* LXQMoreInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */; };
 		EED3EBC81E02D8D200D9321B /* LXQChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */; };
+		EEE1A88C1E03ED5E002293E0 /* LXQEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQMoreInputView.m; sourceTree = "<group>"; };
 		EED3EBC61E02D8D200D9321B /* LXQChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQChatHelper.h; sourceTree = "<group>"; };
 		EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQChatHelper.m; sourceTree = "<group>"; };
+		EEE1A88A1E03ED5E002293E0 /* LXQEmotionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQEmotionView.h; sourceTree = "<group>"; };
+		EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQEmotionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,7 @@
 		EE2C9CF31E024CCC006F65F1 /* WeChatTextView */ = {
 			isa = PBXGroup;
 			children = (
+				EEE1A8881E03ED3D002293E0 /* emotionView */,
 				EED3EBC61E02D8D200D9321B /* LXQChatHelper.h */,
 				EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */,
 				EE90C2741E02C124008B5D09 /* moreInputView */,
@@ -180,6 +184,23 @@
 				EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */,
 			);
 			path = moreInputView;
+			sourceTree = "<group>";
+		};
+		EEE1A8881E03ED3D002293E0 /* emotionView */ = {
+			isa = PBXGroup;
+			children = (
+				EEE1A8891E03ED3D002293E0 /* Cell */,
+				EEE1A88A1E03ED5E002293E0 /* LXQEmotionView.h */,
+				EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */,
+			);
+			path = emotionView;
+			sourceTree = "<group>";
+		};
+		EEE1A8891E03ED3D002293E0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +342,7 @@
 				EE90C2771E02C13D008B5D09 /* LXQMoreInputView.m in Sources */,
 				EE2C9D2F1E024CDC006F65F1 /* UIButton+setImage.m in Sources */,
 				EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */,
+				EEE1A88C1E03ED5E002293E0 /* LXQEmotionView.m in Sources */,
 				EE2C9D2E1E024CDC006F65F1 /* LXQInputView.m in Sources */,
 				EE2C9CF91E024CCC006F65F1 /* AppDelegate.m in Sources */,
 				EE2C9CF61E024CCC006F65F1 /* main.m in Sources */,

@@ -137,6 +137,84 @@ count = contentSize.height - self.tmpHeight;
   @end
   ```
 
-  ​
+  **2016-12-16，今天思维有点乱，不想使用Helper来处理，但是又想不到更好的办法**
+
+* **将moreInputView和ChatVIewController彻底的隔绝，不在ChatVIewController中对MoreInputView进行任何的操作**
+
+  * **思路**
+
+    > 在inputView中添加新属性 ChatViewController
+
+    ```objective-c
+    @property (nonatomic, weak)     UIViewController            *chatViewController;
+    ```
+
+    在添加moreInputView的时候必须保证chatViewController是存在的，因此需要在set方法中去设置moreInputView
+
+    ```objective-c
+    - (void)setChatViewController:(UIViewController *)chatViewController{
+        _chatViewController = chatViewController;
+        self.moreInputView = [[LXQMoreInputView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chatViewController.view.frame), CGRectGetWidth(chatViewController.view.frame), MOREINPUTVIEW_MAX_HEIGHT)];
+        [chatViewController.view addSubview:self.moreInputView];
+        
+    }
+    ```
+
+    添加动画效果
+
+    ```objective-c
+    - (void)moreViewAnimationUp{
+        [UIView animateWithDuration:ANIMATION_TIME animations:^{
+            CGRect rect = self.moreInputView.frame;
+    //        rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+    //        self.frame = rect;
+    //        
+    //        rect = self.moreInputView.frame;
+            rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+            self.moreInputView.frame = rect;
+            self.moreInputViewWasShow = YES;
+        }];
+        
+    }
+
+    - (void)moreViewAnimationDown{
+        if (self.moreInputViewWasShow) {
+            [UIView animateWithDuration:ANIMATION_TIME animations:^{
+                CGRect rect = self.moreInputView.frame;
+                rect.origin.y += MOREINPUTVIEW_MAX_HEIGHT;
+                self.moreInputView.frame = rect;
+                self.moreInputViewWasShow = NO;
+            } completion:nil];
+        }
+    }
+    ```
+
+    并且添加inputView的动画效果
+
+    ```objective-c
+    - (void)inputViewAnimationUp{
+        [UIView animateWithDuration:ANIMATION_TIME animations:^{
+            CGRect rect = self.frame;
+            rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+            self.frame = rect;
+        }];
+    }
+    ```
+
+    在inputView TextView进入编辑的时候隐藏moreInputView
+
+    ```objective-c
+    //监听textView即将被编辑
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textViewWillEditing) name:UITextViewTextDidBeginEditingNotification object:nil];
+    ```
+
+    ```objective-c
+    - (void)textViewWillEditing{
+        NSLog(@"textView即将进入编辑状态");
+        [self moreViewAnimationDown];
+    }
+    ```
+
+    ​
 
   ​

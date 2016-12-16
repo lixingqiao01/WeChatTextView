@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define MOREINPUTVIEW_MAX_HEIGHT 224
 
 @interface LXQMoreInputView : UIView
 
@@ -14,11 +15,6 @@
  聊天室Controller
  */
 @property (nonatomic, weak) UIViewController *chatViewController;
-
-/**
- 开始动画
- */
-- (void)startAnimation;
 
 + (LXQMoreInputView *)shareMoreInputView;
 

@@ -20,8 +20,4 @@
     return chatHelper;
 }
 
-- (void)showMoreInputView{
-    [self.moreInputView startAnimation];
-}
-
 @end

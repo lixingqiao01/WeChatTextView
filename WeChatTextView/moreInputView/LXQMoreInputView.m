@@ -7,7 +7,6 @@
 //
 
 #import "LXQMoreInputView.h"
-#define MOREINPUTVIEW_MAX_HEIGHT 224
 
 @interface LXQMoreInputView ()
 
@@ -16,6 +15,8 @@
 @property (nonatomic, strong)   CADisplayLink *displayLink;
 
 @property (nonatomic, assign)   CGRect  tmpFrame;
+
+@property (nonatomic, strong)   UIPageControl *pageControl;
 
 @end
 
@@ -47,48 +48,53 @@
     return moreInputView;
 }
 
+- (void)setChatViewController:(UIViewController *)chatViewController{
+    _chatViewController = chatViewController;
+    self.frame = CGRectMake(0, CGRectGetMaxY(chatViewController.view.frame), CGRectGetWidth(chatViewController.view.frame), MOREINPUTVIEW_MAX_HEIGHT);
+}
+
 - (void)setUI{
-//    [self startListenFrame];
     self.backgroundColor = [UIColor redColor];
-}
-
-#pragma mark 动画
-- (void)startAnimation{
-    NSLog(@"%@",self.superview);
-    self.frame = CGRectMake(0, CGRectGetMaxY(self.superview.frame), self.superview.frame.size.width, MOREINPUTVIEW_MAX_HEIGHT);
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect rect = self.frame;
-        rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
-        self.frame = rect;
-    }];
-}
-
-#pragma mark 监听frame的改变
-- (void)startListenFrame{
-    [self stopListenFrame];
-    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(listenFrame)];
-    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-}
-
-- (void)stopListenFrame{
-    [self.displayLink invalidate];
-    self.displayLink  = nil;
-    [self listenFrame];
-}
-
-- (void)listenFrame{
-    CALayer *presentationLayer = self.layer.presentationLayer;
-    if (presentationLayer.frame.origin.y != self.tmpFrame.origin.y) {
-        NSLog(@"%g",presentationLayer.frame.origin.y);
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithFloat:presentationLayer.frame.origin.x],@"x",
-                              [NSNumber numberWithFloat:presentationLayer.frame.origin.y],@"y",
-                              [NSNumber numberWithFloat:presentationLayer.frame.size.height],@"height",
-                              [NSNumber numberWithFloat:presentationLayer.frame.size.width],@"width",
-                              nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"LXQNotificationMoreInputView" object:nil userInfo:dict];
-    }
-    self.tmpFrame = presentationLayer.frame;
+    self.pageControl = [[UIPageControl alloc]init];
+    self.pageControl.numberOfPages = 2;
+    [self addSubview:self.pageControl];
+    self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *pageLeft = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                attribute:NSLayoutAttributeLeft
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self
+                                                                attribute:NSLayoutAttributeLeft
+                                                               multiplier:1.0
+                                                                 constant:10];
+    [self addConstraint:pageLeft];
+    
+    NSLayoutConstraint *pageBottom = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:-15];
+    [self addConstraint:pageBottom];
+    
+    NSLayoutConstraint *pageRight = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                 attribute:NSLayoutAttributeRight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self
+                                                                 attribute:NSLayoutAttributeRight
+                                                                multiplier:1.0
+                                                                  constant:-10];
+    [self addConstraint:pageRight];
+    
+    NSLayoutConstraint *pageHeight = [NSLayoutConstraint constraintWithItem:self.pageControl
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0
+                                                                   constant:10];
+    [self addConstraint:pageHeight];
 }
 
 /*

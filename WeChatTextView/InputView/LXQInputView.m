@@ -9,8 +9,10 @@
 #import "LXQInputView.h"
 #import "UIButton+setImage.h"
 #import "LXQMoreInputView.h"
+#import "LXQEmotionView.h"
 
 #define INPUTVIEW_MAX_HEIGHT 132
+#define ANIMATION_TIME              0.3
 
 @interface LXQInputView ()<UITextViewDelegate>{
     UIButton *moreButton;
@@ -20,6 +22,12 @@
 }
 @property (nonatomic, assign) CGFloat tmpHeight;
 @property (nonatomic, strong) UIButton *voiceButton;
+@property (nonatomic, strong)   LXQMoreInputView            *moreInputView;
+@property (nonatomic, assign)   BOOL                        moreInputViewWasShow;//记录moreView是否显示
+@property (nonatomic, assign)   BOOL                        moreButtonSelect;//moreButton是否选中
+@property (nonatomic, strong)   LXQEmotionView              *emotionView;
+@property (nonatomic, assign)   BOOL                        emotionViewWasShow;//记录emotionView是否显示
+@property (nonatomic, assign)   BOOL                        emotionButtonSelect;//记录emotionButton是否选中
 
 @end
 
@@ -46,8 +54,13 @@
 }
 
 - (void)setupUI:(CGRect)frame{
+    
+    self.moreInputViewWasShow = NO;
+    self.moreButtonSelect = NO;
+    self.emotionViewWasShow = NO;
+    self.emotionButtonSelect = NO;
+    
     self.voiceButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    self.voiceButton.frame = CGRectMake(4, 7, 35, 35);
     self.voiceButton.tintColor = [UIColor lightGrayColor];
     [self.voiceButton setImage:[UIImage imageNamed:@"chatInput.bundle/ToolViewKeyboard"] forState:UIControlStateNormal];
     [self.voiceButton setImage:[UIImage imageNamed:@"chatInput.bundle/ToolViewKeyboardHL"] forState:UIControlStateSelected];
@@ -230,10 +243,9 @@
     //监听键盘
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWasShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHideNotification) name:UIKeyboardWillHideNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreInputViewWillShow:) name:@"LXQNotificationMoreInputView" object:nil];
-    
-//    [self startListenFrame];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    //监听textView即将被编辑
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textViewWillEditing) name:UITextViewTextDidBeginEditingNotification object:nil];
 }
 
 - (void)voiceButtonClick:(UIButton *)sender{
@@ -241,12 +253,107 @@
 }
 
 - (void)moreButtonClick:(UIButton *)sender{
-    [[LXQMoreInputView shareMoreInputView] startAnimation];
+    self.moreButtonSelect = !self.moreButtonSelect;
+    self.emotionButtonSelect = NO;
+    if (!self.moreButtonSelect) {
+        [self.textView becomeFirstResponder];
+    }
+    if (!self.moreInputViewWasShow && self.moreButtonSelect) {
+        [self.textView resignFirstResponder];
+        if (!self.emotionViewWasShow) {
+            [self inputViewAnimationUp];
+        } else {
+            [self emotionViewAnimationDown];
+        }
+        [self moreViewAnimationUp];
+    }
 }
 
 - (void)emotionButtonClick:(UIButton *)sender{
+    self.emotionButtonSelect = !self.emotionButtonSelect;
+    self.moreButtonSelect = NO;
+    if (!self.emotionButtonSelect) {
+        [self.textView becomeFirstResponder];
+    }
+    if (!self.emotionViewWasShow && self.emotionButtonSelect) {
+        [self.textView resignFirstResponder];
+        if (!self.moreInputViewWasShow) {
+            [self inputViewAnimationUp];
+        } else {
+            [self moreViewAnimationDown];
+        }
+        
+        [self emotionViewAnimationUp];
+    }
+}
+
+#pragma mark set
+- (void)setChatViewController:(UIViewController *)chatViewController{
+    _chatViewController = chatViewController;
+    self.moreInputView = [[LXQMoreInputView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chatViewController.view.frame), CGRectGetWidth(chatViewController.view.frame), MOREINPUTVIEW_MAX_HEIGHT)];
+    [chatViewController.view addSubview:self.moreInputView];
     
+    self.emotionView = [[LXQEmotionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chatViewController.view.frame), CGRectGetWidth(chatViewController.view.frame), MOREINPUTVIEW_MAX_HEIGHT)];
+    [chatViewController.view addSubview:self.emotionView];
     
+}
+
+#pragma mark ------ animation ------
+
+- (void)inputViewAnimationUp{
+    [UIView animateWithDuration:ANIMATION_TIME animations:^{
+        CGRect rect = self.frame;
+        rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+        self.frame = rect;
+    }];
+}
+
+- (void)moreViewAnimationUp{
+    [UIView animateWithDuration:ANIMATION_TIME animations:^{
+        CGRect rect = self.moreInputView.frame;
+//        rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+//        self.frame = rect;
+//        
+//        rect = self.moreInputView.frame;
+        rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+        self.moreInputView.frame = rect;
+        self.moreInputViewWasShow = YES;
+    }];
+    
+}
+
+- (void)moreViewAnimationDown{
+    if (self.moreInputViewWasShow) {
+        [UIView animateWithDuration:ANIMATION_TIME animations:^{
+            CGRect rect = self.moreInputView.frame;
+            rect.origin.y += MOREINPUTVIEW_MAX_HEIGHT;
+            self.moreInputView.frame = rect;
+            self.moreInputViewWasShow = NO;
+        } completion:nil];
+    }
+}
+
+- (void)emotionViewAnimationUp{
+    [UIView animateWithDuration:ANIMATION_TIME animations:^{
+        CGRect rect = self.emotionView.frame;
+        rect.origin.y -= MOREINPUTVIEW_MAX_HEIGHT;
+        self.emotionView.frame = rect;
+        self.emotionViewWasShow = YES;
+        NSLog(@"up == %@",NSStringFromCGRect(rect));
+    }];
+}
+
+- (void)emotionViewAnimationDown{
+    if (self.emotionViewWasShow) {
+        [UIView animateWithDuration:ANIMATION_TIME animations:^{
+            CGRect rect = self.emotionView.frame;
+            NSLog(@"%@",NSStringFromCGRect(rect));
+            rect.origin.y += MOREINPUTVIEW_MAX_HEIGHT;
+            self.emotionView.frame = rect;
+            self.emotionViewWasShow = NO;
+            NSLog(@"%@",NSStringFromCGRect(rect));
+        } completion:nil];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
@@ -269,7 +376,7 @@
 }
 
 - (void)animationWithDisplace:(CGFloat)displace{
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:ANIMATION_TIME animations:^{
         CGRect rect = self.frame;
         //inputViewFame
         rect.origin.y -= displace;
@@ -298,6 +405,12 @@
     }];
 }
 
+- (void)textViewWillEditing{
+    NSLog(@"textView即将进入编辑状态");
+    [self moreViewAnimationDown];
+    [self emotionViewAnimationDown];
+}
+
 #pragma mark - 键盘监听
 - (void)keyboardWasShow:(NSNotification *)notification{
     self.frame = CGRectMake(0, [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y - 50, self.frame.size.width, 50);
@@ -309,12 +422,8 @@
     self.frame = CGRectMake(0, WinRect.size.height - 50, WinRect.size.width, 50);
 }
 
-#pragma mark - 监听MoreInputView
-- (void)moreInputViewWillShow:(NSNotification *)notification{
-    NSLog(@"555");
-    self.frame = CGRectMake(0, [[[notification userInfo] objectForKey:@"y"] floatValue]- 50, self.frame.size.width, 50);
+- (void)keyboardDidShow:(NSNotification *)noti{
 }
-
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];

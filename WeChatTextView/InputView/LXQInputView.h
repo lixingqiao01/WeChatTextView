@@ -11,4 +11,5 @@
 @interface LXQInputView : UIView
 @property (nonatomic, strong)   UITextView *textView;
 @property (nonatomic, strong)   UITableView *tableView;
+@property (nonatomic, weak)     UIViewController            *chatViewController;
 @end
