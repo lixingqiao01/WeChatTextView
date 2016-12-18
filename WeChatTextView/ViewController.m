@@ -23,6 +23,7 @@
     LXQInputView *inputView = [[LXQInputView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - 50, self.view.frame.size.width, 50)];
     inputView.chatViewController = self;
     [self.view addSubview:inputView];
+    NSLog(@"akjsdhakjshdkajshdkja");
     
 //    LXQMoreInputView *moreShareView = [LXQMoreInputView shareMoreInputView];
 //    moreShareView.chatViewController = self;

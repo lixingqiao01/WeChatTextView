@@ -19,9 +19,13 @@
 		EE2C9D2E1E024CDC006F65F1 /* LXQInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D2A1E024CDC006F65F1 /* LXQInputView.m */; };
 		EE2C9D2F1E024CDC006F65F1 /* UIButton+setImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D2C1E024CDC006F65F1 /* UIButton+setImage.m */; };
 		EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9D301E024E06006F65F1 /* ReadMe.md */; };
+		EE412B1C1E044157000A5110 /* moreShareImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE412B1B1E044157000A5110 /* moreShareImage.bundle */; };
+		EE412B1E1E044180000A5110 /* MoreShareView.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE412B1D1E044180000A5110 /* MoreShareView.plist */; };
+		EE412B271E04F200000A5110 /* LXQCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EE412B261E04F200000A5110 /* LXQCollectionViewLayout.m */; };
 		EE90C2771E02C13D008B5D09 /* LXQMoreInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */; };
 		EED3EBC81E02D8D200D9321B /* LXQChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */; };
 		EEE1A88C1E03ED5E002293E0 /* LXQEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */; };
+		EEE888D21E04315A005AE6EC /* LXQMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE888D11E04315A005AE6EC /* LXQMoreViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,12 +68,18 @@
 		EE2C9D2B1E024CDC006F65F1 /* UIButton+setImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+setImage.h"; sourceTree = "<group>"; };
 		EE2C9D2C1E024CDC006F65F1 /* UIButton+setImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+setImage.m"; sourceTree = "<group>"; };
 		EE2C9D301E024E06006F65F1 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		EE412B1B1E044157000A5110 /* moreShareImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = moreShareImage.bundle; sourceTree = "<group>"; };
+		EE412B1D1E044180000A5110 /* MoreShareView.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MoreShareView.plist; sourceTree = "<group>"; };
+		EE412B251E04F200000A5110 /* LXQCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQCollectionViewLayout.h; sourceTree = "<group>"; };
+		EE412B261E04F200000A5110 /* LXQCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQCollectionViewLayout.m; sourceTree = "<group>"; };
 		EE90C2751E02C13D008B5D09 /* LXQMoreInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQMoreInputView.h; sourceTree = "<group>"; };
 		EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQMoreInputView.m; sourceTree = "<group>"; };
 		EED3EBC61E02D8D200D9321B /* LXQChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQChatHelper.h; sourceTree = "<group>"; };
 		EED3EBC71E02D8D200D9321B /* LXQChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQChatHelper.m; sourceTree = "<group>"; };
 		EEE1A88A1E03ED5E002293E0 /* LXQEmotionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQEmotionView.h; sourceTree = "<group>"; };
 		EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQEmotionView.m; sourceTree = "<group>"; };
+		EEE888D01E04315A005AE6EC /* LXQMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQMoreViewCell.h; sourceTree = "<group>"; };
+		EEE888D11E04315A005AE6EC /* LXQMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQMoreViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +190,11 @@
 		EE90C2741E02C124008B5D09 /* moreInputView */ = {
 			isa = PBXGroup;
 			children = (
+				EE412B1B1E044157000A5110 /* moreShareImage.bundle */,
+				EEE888CF1E04313A005AE6EC /* view */,
 				EE90C2751E02C13D008B5D09 /* LXQMoreInputView.h */,
 				EE90C2761E02C13D008B5D09 /* LXQMoreInputView.m */,
+				EE412B1D1E044180000A5110 /* MoreShareView.plist */,
 			);
 			path = moreInputView;
 			sourceTree = "<group>";
@@ -201,6 +214,17 @@
 			children = (
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		EEE888CF1E04313A005AE6EC /* view */ = {
+			isa = PBXGroup;
+			children = (
+				EEE888D01E04315A005AE6EC /* LXQMoreViewCell.h */,
+				EEE888D11E04315A005AE6EC /* LXQMoreViewCell.m */,
+				EE412B251E04F200000A5110 /* LXQCollectionViewLayout.h */,
+				EE412B261E04F200000A5110 /* LXQCollectionViewLayout.m */,
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +337,8 @@
 				EE2C9D2D1E024CDC006F65F1 /* chatInput.bundle in Resources */,
 				EE2C9D041E024CCC006F65F1 /* LaunchScreen.storyboard in Resources */,
 				EE2C9D011E024CCC006F65F1 /* Assets.xcassets in Resources */,
+				EE412B1C1E044157000A5110 /* moreShareImage.bundle in Resources */,
+				EE412B1E1E044180000A5110 /* MoreShareView.plist in Resources */,
 				EE2C9CFF1E024CCC006F65F1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +373,8 @@
 				EE2C9CF91E024CCC006F65F1 /* AppDelegate.m in Sources */,
 				EE2C9CF61E024CCC006F65F1 /* main.m in Sources */,
 				EED3EBC81E02D8D200D9321B /* LXQChatHelper.m in Sources */,
+				EE412B271E04F200000A5110 /* LXQCollectionViewLayout.m in Sources */,
+				EEE888D21E04315A005AE6EC /* LXQMoreViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -409,6 +409,8 @@
     NSLog(@"textView即将进入编辑状态");
     [self moreViewAnimationDown];
     [self emotionViewAnimationDown];
+    self.moreButtonSelect = NO;
+    self.emotionButtonSelect = NO;
 }
 
 #pragma mark - 键盘监听
