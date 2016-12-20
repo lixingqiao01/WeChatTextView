@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "LXQMoreInputView.h"
 #import "LXQInputView.h"
-#import "LXQChatHelper.h"
+//#import "LXQChatHelper.h"
 
 @interface ViewController ()
 
