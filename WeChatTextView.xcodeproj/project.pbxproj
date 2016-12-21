@@ -28,6 +28,8 @@
 		EE9EFC561E06C37300C77032 /* Emotions.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE9EFC541E06C37300C77032 /* Emotions.plist */; };
 		EE9EFC591E06CA1900C77032 /* LXQTitleEmotionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EFC581E06CA1900C77032 /* LXQTitleEmotionCollectionViewCell.m */; };
 		EEE1A88C1E03ED5E002293E0 /* LXQEmotionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */; };
+		EEE82AF51E096D7100E13472 /* LXQEmotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE82AF41E096D7100E13472 /* LXQEmotionCell.m */; };
+		EEE82AF81E0977CD00E13472 /* LXQEmotionCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE82AF71E0977CD00E13472 /* LXQEmotionCollectionViewLayout.m */; };
 		EEE888D21E04315A005AE6EC /* LXQMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE888D11E04315A005AE6EC /* LXQMoreViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +86,10 @@
 		EE9EFC581E06CA1900C77032 /* LXQTitleEmotionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQTitleEmotionCollectionViewCell.m; sourceTree = "<group>"; };
 		EEE1A88A1E03ED5E002293E0 /* LXQEmotionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQEmotionView.h; sourceTree = "<group>"; };
 		EEE1A88B1E03ED5E002293E0 /* LXQEmotionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQEmotionView.m; sourceTree = "<group>"; };
+		EEE82AF31E096D7100E13472 /* LXQEmotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQEmotionCell.h; sourceTree = "<group>"; };
+		EEE82AF41E096D7100E13472 /* LXQEmotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQEmotionCell.m; sourceTree = "<group>"; };
+		EEE82AF61E0977CD00E13472 /* LXQEmotionCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQEmotionCollectionViewLayout.h; sourceTree = "<group>"; };
+		EEE82AF71E0977CD00E13472 /* LXQEmotionCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQEmotionCollectionViewLayout.m; sourceTree = "<group>"; };
 		EEE888D01E04315A005AE6EC /* LXQMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXQMoreViewCell.h; sourceTree = "<group>"; };
 		EEE888D11E04315A005AE6EC /* LXQMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXQMoreViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,6 +235,10 @@
 			children = (
 				EE9EFC571E06CA1900C77032 /* LXQTitleEmotionCollectionViewCell.h */,
 				EE9EFC581E06CA1900C77032 /* LXQTitleEmotionCollectionViewCell.m */,
+				EEE82AF31E096D7100E13472 /* LXQEmotionCell.h */,
+				EEE82AF41E096D7100E13472 /* LXQEmotionCell.m */,
+				EEE82AF61E0977CD00E13472 /* LXQEmotionCollectionViewLayout.h */,
+				EEE82AF71E0977CD00E13472 /* LXQEmotionCollectionViewLayout.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -306,7 +316,7 @@
 		EE2C9CE91E024CCC006F65F1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = LXQ.inc;
 				TargetAttributes = {
 					EE2C9CF01E024CCC006F65F1 = {
@@ -386,11 +396,13 @@
 			files = (
 				EE2C9CFC1E024CCC006F65F1 /* ViewController.m in Sources */,
 				EE90C2771E02C13D008B5D09 /* LXQMoreInputView.m in Sources */,
+				EEE82AF81E0977CD00E13472 /* LXQEmotionCollectionViewLayout.m in Sources */,
 				EE2C9D2F1E024CDC006F65F1 /* UIButton+setImage.m in Sources */,
 				EE2C9D311E024E06006F65F1 /* ReadMe.md in Sources */,
 				EEE1A88C1E03ED5E002293E0 /* LXQEmotionView.m in Sources */,
 				EE2C9D2E1E024CDC006F65F1 /* LXQInputView.m in Sources */,
 				EE2C9CF91E024CCC006F65F1 /* AppDelegate.m in Sources */,
+				EEE82AF51E096D7100E13472 /* LXQEmotionCell.m in Sources */,
 				EE2C9CF61E024CCC006F65F1 /* main.m in Sources */,
 				EE412B271E04F200000A5110 /* LXQCollectionViewLayout.m in Sources */,
 				EE9EFC591E06CA1900C77032 /* LXQTitleEmotionCollectionViewCell.m in Sources */,
@@ -467,6 +479,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -514,6 +527,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

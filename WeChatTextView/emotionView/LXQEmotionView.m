@@ -8,10 +8,13 @@
 
 #import "LXQEmotionView.h"
 #import "LXQTitleEmotionCollectionViewCell.h"
+#import "LXQEmotionCell.h"
+#import "LXQEmotionCollectionViewLayout.h"
 
-static NSString *titleEmotionCollectionCellResulIdentifier = @"LXQTitleEmotionCollectionViewCell.h";
+static NSString *titleEmotionCollectionCellResulIdentifier  =   @"LXQTitleEmotionCollectionViewCell.h";
+static NSString *EmotionCell                                =   @"LXQEmotionCell.h";
 
-@interface LXQEmotionView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface LXQEmotionView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LXQEmotionCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong)   UIButton                *sendButton;
 
@@ -30,7 +33,7 @@ static NSString *titleEmotionCollectionCellResulIdentifier = @"LXQTitleEmotionCo
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor colorWithRed:245/255.0f green:245/255.0f blue:246/255.0f alpha:1];
         [self setUI];
     }
     return self;
@@ -39,7 +42,7 @@ static NSString *titleEmotionCollectionCellResulIdentifier = @"LXQTitleEmotionCo
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor colorWithRed:245/255.0f green:245/255.0f blue:246/255.0f alpha:1];
         [self setUI];
     }
     return self;
@@ -235,32 +238,100 @@ static NSString *titleEmotionCollectionCellResulIdentifier = @"LXQTitleEmotionCo
                                                              multiplier:1.0
                                                                constant:10];
     [self addConstraint:heoght];
+    [self initEmotionCollection];
 }
 
 - (void)initEmotionCollection{
+//    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+//    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+//    flowLayout.itemSize = CGSizeMake(30, 30);
+//    flowLayout.minimumLineSpacing = 0;
+//    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    flowLayout.minimumInteritemSpacing = 0;
     
+    LXQEmotionCollectionViewLayout *flowLayout = [[LXQEmotionCollectionViewLayout alloc]init];
+    flowLayout.delegate = self;
+    flowLayout.sectionInset = UIEdgeInsetsMake(25, 25, 10, 25);
+    flowLayout.itemSize = CGSizeMake(30, 30);
+    flowLayout.lineSpacing = 20;
+//    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flowLayout.rowSpacing = 10.5;
+    flowLayout.lineNumber = 3;
+    
+    self.emotionCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    self.emotionCollectionView.delegate = self;
+    self.emotionCollectionView.dataSource = self;
+    self.emotionCollectionView.pagingEnabled = YES;
+    self.emotionCollectionView.showsHorizontalScrollIndicator = NO;;
+    self.emotionCollectionView.backgroundColor = [UIColor clearColor];
+    [self.emotionCollectionView registerClass:[LXQEmotionCell class] forCellWithReuseIdentifier:EmotionCell];
+    [self addSubview:self.emotionCollectionView];
+    
+    self.emotionCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.emotionCollectionView
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self
+                                                           attribute:NSLayoutAttributeTop
+                                                          multiplier:1.0
+                                                            constant:0];
+    
+    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.emotionCollectionView
+                                                            attribute:NSLayoutAttributeLeft
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeLeft
+                                                           multiplier:1.0
+                                                             constant:0];
+    
+    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.emotionCollectionView
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.emotionPageControl
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:-5];
+    
+    NSLayoutConstraint *right = [NSLayoutConstraint constraintWithItem:self.emotionCollectionView
+                                                             attribute:NSLayoutAttributeRight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self
+                                                             attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0
+                                                              constant:0];
+    [self addConstraints:@[top,left,right,bottom]];
 }
 
 - (void)loadLocalData{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Emotions" ofType:@"plist"];
     [self.titleDataArray addObjectsFromArray:[NSMutableArray arrayWithContentsOfFile:path]];
-//    NSLog(@"%@",self.titleDataArray);
+    NSLog(@"%@",self.titleDataArray);
     [self.titleEmotionCollectionView reloadData];
     
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    if (collectionView == self.titleEmotionCollectionView) {
+    if (collectionView == self.titleEmotionCollectionView) {
         return self.titleDataArray.count;
-//    }
-//    return 0;
+    }
+    return [[self.titleDataArray[section] objectForKey:@"items"] count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    LXQTitleEmotionCollectionViewCell *titleCell = [collectionView dequeueReusableCellWithReuseIdentifier:titleEmotionCollectionCellResulIdentifier forIndexPath:indexPath];
-    titleCell.titleImage = [UIImage imageNamed:[self.titleDataArray[indexPath.row] objectForKey:@"groupicon"]];
-    return titleCell;
+    
+    if (collectionView == self.titleEmotionCollectionView) {
+        LXQTitleEmotionCollectionViewCell *titleCell = [collectionView dequeueReusableCellWithReuseIdentifier:titleEmotionCollectionCellResulIdentifier forIndexPath:indexPath];
+        titleCell.titleImage = [UIImage imageNamed:[self.titleDataArray[indexPath.row] objectForKey:@"groupicon"]];
+        return titleCell;
+    }
+    LXQEmotionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:EmotionCell forIndexPath:indexPath];
+    cell.emotionImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Emotion.bundle/%@",[[[self.titleDataArray[indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+    return cell;
+    
 }
+
+#pragma mark - LXQEmotionCollectionViewLayoutDelegate
 
 - (void)addButtonClick:(UIButton *)sender{
     
